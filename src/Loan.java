@@ -63,7 +63,7 @@ public class Loan {
         System.out.println("Enter the verification sent on your mail");
         String code = sc.nextLine();
         if (send.getCode().equals(code)) {
-            System.out.println("Verification process is in progress you can check it later on our portal");
+            // System.out.println("Verification process is in progress you can check it later on our portal");
         }
         else{
             System.out.println("You have provided invalid OTP");
@@ -80,7 +80,7 @@ public class Loan {
             st.executeUpdate(query);
             System.out.println("You have successfully applied for a loan of Rs."+amount+" for "+duration+" months");
             count = false;
-            System.out.println("Your loan status is pending(press enter to goto main menu)");
+            System.out.println("press enter to goto main menu");
             sc.nextLine();
             new Loan(email);
         } catch (Exception e) {
@@ -99,19 +99,21 @@ public class Loan {
         System.out.println("Enter Amount you want to repay");
         int amount = Integer.parseInt(sc.nextLine());
         int total = TotalAmount()-amount;
-        try {
-            java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
-            String query = "UPDATE `loan` SET `amount`='"+total+"' WHERE email = '"+email+"' ";
-            java.sql.Statement st = con.createStatement();
-            st.executeUpdate(query);
-            
-        } catch (Exception e) {
-            // TODO: handle exception
+        if(total>=0){
+            try {
+                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
+                String query = "UPDATE `loan` SET `amount`='"+total+"' WHERE email = '"+email+"' ";
+                java.sql.Statement st = con.createStatement();
+                st.executeUpdate(query);
+                
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+            System.out.println("you have Repayed Rs."+amount+" your Remaining loan is Rs."+total);
         }
-        System.out.println("you have Repayed Rs."+amount+" your Remaining loan is Rs."+total);
-        System.out.println("Press enter to goto main menu");
-        sc.nextLine();
-        new Loan(email);
+            System.out.println("Press enter to goto main menu");
+            sc.nextLine();
+            new Loan(email);
     }
     else{
         try {
@@ -137,11 +139,11 @@ public class Loan {
     public void Check(String email) throws ClassNotFoundException, SQLException{
         Scanner sc = new Scanner(System.in);
         if (Status(email)) {
-            System.out.println("your Loan has been approved for Rs."+TotalAmount()+"\npress enter to goto main menu");
+            System.out.println("your remaining loan amount to be repayed is Rs."+TotalAmount()+"\npress enter to goto main menu");
             sc.nextLine();
             new Loan(email);
         } else {
-            System.out.println("You have not applied for any loan \npress enter to goto main menu");
+            System.out.println("You have no remaining loan \npress enter to goto main menu");
             sc.nextLine();
             new Loan(email);
             
