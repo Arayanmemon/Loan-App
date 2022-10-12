@@ -3,6 +3,8 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\DELL\\Downloads\\Compressed\\jdbc.jar"
+        "c:\\Users\\DELL\\Downloads\\Compressed\\jdbc.jar",
+        "c:\\Users\\DELL\\Downloads\\Compressed\\javax.mail-1.6.2.jar",
+        "c:\\Users\\DELL\\Downloads\\Compressed\\activation.jar"
     ]
 }

@@ -1,6 +1,5 @@
 import java.sql.*;
 import java.util.Scanner;
-
 import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.Statement;
 
@@ -73,7 +72,7 @@ class Login{
             if(rs.next()){
                 System.out.println("Login Successfull");
                 System.out.println("Redirecting to Home Page.....");
-                new Loan();
+                new Loan(email);
             }else{
                 System.out.println("Invalid Email or Password");
             }
