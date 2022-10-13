@@ -1,4 +1,4 @@
-public class CodeGenerator {
+public class CodeGenerator{
     String Generate(){
 
     String AlphaNumericString = "0123456789"; 

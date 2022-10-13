@@ -1,10 +1,11 @@
 import java.util.Properties;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class SendMail extends Thread {
     private String email;
@@ -53,9 +54,6 @@ public class SendMail extends Thread {
             // message.setSubject("LoanApp Application");
             // message.setText("You have successfully applied for Student Loan of Rs.50000 for the duration of 3 years.\nYou have to start the repayment of your loan after 1 year\n\nSincerely\nTeam LoanApp\nCEO Arayan memon");
             Transport.send(message);
-
-            // System.out.println("message sent successfully...");
-
         } catch (MessagingException e) {
             e.printStackTrace();
         }
