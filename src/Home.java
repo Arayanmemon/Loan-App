@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.sql.*;
 import java.util.Scanner;
 import com.mysql.jdbc.ResultSet;
@@ -36,7 +37,9 @@ class Register{
         System.out.println("Enter your email");
         String email = sc.nextLine();
         System.out.println("Enter your password");
-        String password = sc.nextLine();
+        Console c = System.console();
+        char[] chars = c.readPassword();
+        String password = new String(chars);
         System.out.println("Enter your mobile number");
         String mobile = sc.nextLine();
         System.out.println("Enter your address");
@@ -62,7 +65,9 @@ class Login{
         System.out.println("Enter your email");
         String email = sc.nextLine();
         System.out.println("Enter your password");
-        String password = sc.nextLine();
+        Console con = System.console();
+        char[] chars = con.readPassword();
+        String password = new String(chars);
         try {
             String query = "select * from register where email='"+email+"' and password='"+password+"'";
             Class.forName("com.mysql.jdbc.Driver");

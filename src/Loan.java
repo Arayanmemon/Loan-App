@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -49,8 +50,9 @@ public class Loan {
         Scanner sc = new Scanner(System.in);
         String email = this.email;
         System.out.println("Enter your loan amount(10,000 - 1,00,000)");
-        String amount = sc.nextLine();
-        if (Integer.parseInt(amount) > 100000) {
+        int amount = Math.abs(sc.nextInt());
+        sc.nextLine();
+        if (amount > 100000) {
             System.out.println("You can't apply for loan more than 1,00,000");
             sc.nextLine();
             Apply();
@@ -97,8 +99,13 @@ public class Loan {
         System.out.println("Loan Repayment ===========================");
         System.out.println("you have taken a loan of Rs."+TotalAmount());
         System.out.println("Enter Amount you want to repay");
-        int amount = Integer.parseInt(sc.nextLine());
+        int amount = Math.abs(sc.nextInt());
         int total = TotalAmount()-amount;
+        System.out.println("Enter password to confirm transaction");
+        Console c = System.console();
+        char[] chars = c.readPassword();
+        String password = new String(chars);
+
         if(total>=0){
             try {
                 java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
@@ -150,6 +157,7 @@ public class Loan {
         }
     }   // End of Check status method
     
+    // Email CHeck
     public boolean Status(String email) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
         java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
@@ -165,7 +173,25 @@ public class Loan {
                 }
             }
         return false;
-    }
+    }   // End of Email Check
+
+    // Password Check
+    public boolean Pass(String pass) throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
+        java.sql.Statement st = con.createStatement();
+        String qr = "select * from `register` where `email` = '"+this.email+"' && `password`='"+pass+"'";
+        java.sql.ResultSet rs = st.executeQuery(qr);
+        while(rs.next()){
+                if (rs.getString("password").equals(pass)) {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        return false;
+    }   // End of Password Check
 
     // method to get total amount of loan
     public int TotalAmount(){
