@@ -26,7 +26,7 @@ public class SendMail extends Thread {
         confirmCode = cg.Generate();
         String host = "smtp.gmail.com";
         final String user = "arayanmemon338@gmail.com";// change accordingly
-        final String password = "tudfqfgqnleomxzi";// change accordingly
+        final String password = "code from email";// Get a special pass from email setting for sending an email.
 
         String to = email;// change accordingly
 
